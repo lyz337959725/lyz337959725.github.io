@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://yoursite.com/"/>
-  <updated>2019-02-16T03:17:26.451Z</updated>
+  <updated>2019-03-11T06:51:01.742Z</updated>
   <id>http://yoursite.com/</id>
   
   <author>
@@ -17,27 +17,55 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>Hello World</title>
-    <link href="http://yoursite.com/2019/02/14/hello-world/"/>
-    <id>http://yoursite.com/2019/02/14/hello-world/</id>
-    <published>2019-02-14T03:01:58.376Z</published>
-    <updated>2019-02-16T03:17:26.451Z</updated>
+    <title>使用docker安装mysql</title>
+    <link href="http://yoursite.com/2019/03/11/%E4%BD%BF%E7%94%A8docker%E5%AE%89%E8%A3%85mysql/"/>
+    <id>http://yoursite.com/2019/03/11/使用docker安装mysql/</id>
+    <published>2019-03-11T06:10:44.051Z</published>
+    <updated>2019-03-11T06:51:01.742Z</updated>
     
-    <content type="html"><![CDATA[<p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p><h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p><h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><a id="more"></a><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p><h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p><h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure><p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>]]></content>
+    <content type="html"><![CDATA[<p> 刚开始使用docker搭建开发环境，记录一下部署mysql的过程，供以后查找。</p><h2 id="1-安装mysql的镜像"><a href="#1-安装mysql的镜像" class="headerlink" title="1 安装mysql的镜像"></a>1 安装mysql的镜像</h2><p>pull命令用于从dockerhub上拉去安装镜像<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql</span><br></pre></td></tr></table></figure></p><h2 id="2-查看下载好的镜像"><a href="#2-查看下载好的镜像" class="headerlink" title="2 查看下载好的镜像"></a>2 查看下载好的镜像</h2><p>images命令 展示本机已安装的所有镜像，看看mysql有没有安装好<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker images</span><br></pre></td></tr></table></figure></p><h2 id="3-启动mysql"><a href="#3-启动mysql" class="headerlink" title="3 启动mysql"></a>3 启动mysql</h2><p>–name 为mysql的实例设置别名<br>-p 3307为对外暴露的端口。3306是内部端口<br>-e MYSQL_ROOT_PASSWORD 设置mysql登录密码<br>-d 以守护进程运行（后台运行） 最后的mysql是镜像名称</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name dockermysql  -p 3307:3306 -e MYSQL_ROOT_PASSWORD=your password -d mysql</span><br></pre></td></tr></table></figure><h2 id="4-查看在运行的镜像"><a href="#4-查看在运行的镜像" class="headerlink" title="4 查看在运行的镜像"></a>4 查看在运行的镜像</h2><p>看看mysql 是不是正常启动了<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker ps -a</span><br></pre></td></tr></table></figure></p><h2 id="5-进入容器"><a href="#5-进入容器" class="headerlink" title="5 进入容器"></a>5 进入容器</h2><p>正常启动mysql，一般要对mysql设置一些权限，就要先进入docker容器。dockermysql 是上边运行时为容器取的别名 也可以用id替代<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it dockermysql bash</span><br></pre></td></tr></table></figure></p><p>进入docker成功后的标志是命令行开头的变化。<br><img src="https://lyz337959725.oss-cn-qingdao.aliyuncs.com/%E8%BF%9B%E5%85%A5docker.png?Expires=1552290470&amp;OSSAccessKeyId=TMP.AQEvT2f75ghij_Z0eNtmIIu9eYU-X5VFGqM0c54jKTjjI9UFiC1jL3LZmUfmADAtAhR0iqHvOTkT9OLuT2ECRK0VQsXeEAIVALnQxQ-beZB8LGdSBLj_RXEQwkYk&amp;Signature=9LgZGfoPApSVgYLcErKEHqiLCzo%3D" alt="进入docker"><br>然后就可以像平常在命令行中操作mysql一样操作了。</p>]]></content>
     
     <summary type="html">
     
-      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
-&lt;h2 id=&quot;Quick-Start&quot;&gt;&lt;a href=&quot;#Quick-Start&quot; class=&quot;headerlink&quot; title=&quot;Quick Start&quot;&gt;&lt;/a&gt;Quick Start&lt;/h2&gt;&lt;h3 id=&quot;Create-a-new-post&quot;&gt;&lt;a href=&quot;#Create-a-new-post&quot; class=&quot;headerlink&quot; title=&quot;Create a new post&quot;&gt;&lt;/a&gt;Create a new post&lt;/h3&gt;&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&quot;My New Post&quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
-&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/writing.html&quot; target=&quot;_blank&quot; rel=&quot;noopener&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;
-&lt;h3 id=&quot;Run-server&quot;&gt;&lt;a href=&quot;#Run-server&quot; class=&quot;headerlink&quot; title=&quot;Run server&quot;&gt;&lt;/a&gt;Run server&lt;/h3&gt;
+      
+      
+        &lt;p&gt; 刚开始使用docker搭建开发环境，记录一下部署mysql的过程，供以后查找。&lt;/p&gt;
+&lt;h2 id=&quot;1-安装mysql的镜像&quot;&gt;&lt;a href=&quot;#1-安装mysql的镜像&quot; class=&quot;headerlink&quot; title=&quot;1 安装mysql的镜像&quot;&gt;&lt;/a&gt;1 
+      
     
     </summary>
     
+      <category term="docker的使用" scheme="http://yoursite.com/categories/docker%E7%9A%84%E4%BD%BF%E7%94%A8/"/>
     
-      <category term="Testing" scheme="http://yoursite.com/tags/Testing/"/>
     
-      <category term="Another Tag" scheme="http://yoursite.com/tags/Another-Tag/"/>
+      <category term="docker" scheme="http://yoursite.com/tags/docker/"/>
+    
+      <category term="mysql" scheme="http://yoursite.com/tags/mysql/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>LomBok的基本介绍</title>
+    <link href="http://yoursite.com/2019/02/14/lomboc%E5%9F%BA%E7%A1%80%E4%BB%8B%E7%BB%8D/"/>
+    <id>http://yoursite.com/2019/02/14/lomboc基础介绍/</id>
+    <published>2019-02-14T03:01:58.376Z</published>
+    <updated>2019-03-11T06:52:00.442Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="认识LomBok"><a href="#认识LomBok" class="headerlink" title="认识LomBok"></a>认识LomBok</h1><p>第一次知道有LomBok这个插件存在是在看别人源码的时候，打开了一个实体类发现竟然没有get、set等一些基本方法，此外就是类名上有个@Data注解，经过一番搜索才算认识了LomBok。</p><p>Lombok是一种Java实用工具，可用来帮助开发人员消除Java的冗长代码，尤其是对于简单的Java对象（实体类）。它通过注释实现这一目的。通过在开发环境中实现Lombok，开发人员可以节省构建诸如hashCode()和equals()这样的方法以及以往用来分类各种accessor和mutator的大量时间。<strong>其实就是语法糖</strong></p><h1 id="安装LomBok"><a href="#安装LomBok" class="headerlink" title="安装LomBok"></a>安装LomBok</h1><p>eclipse和idea的安装方式不太一样，由于我习惯用idea，我就只写下idea的安装方式吧</p><p>打开file–setting–plugins–搜索框输入lombok–找到对应插件，点击install,如下图：</p><p><img src="http://pn3zydwvw.bkt.clouddn.com/%E5%AE%89%E8%A3%85lombok.png" alt="安装Lombok"></p><p>安装完成后重启idea,即可完成开始使用LomBok.</p><h1 id="LomBok的使用"><a href="#LomBok的使用" class="headerlink" title="LomBok的使用"></a>LomBok的使用</h1><h3 id="注释简单介绍"><a href="#注释简单介绍" class="headerlink" title="注释简单介绍"></a>注释简单介绍</h3><blockquote><p>val：用于属性上，将变量声明为final</p></blockquote><blockquote><p>@NonNull：用于属性上，会自动对该属性进行是否为空的校验，如果为空，则抛出NPE（NullPointerException）。</p></blockquote><blockquote><p>@Cleanup：自动管理资源（类似python中的上下文管理器的作用）。</p></blockquote><blockquote><p>@Getter/@Setter：用于属性上，自动为该属性生产get set 方法。</p></blockquote><blockquote><p>@ToString：用于类上，会自动为该类生成toString()方法。</p></blockquote><blockquote><p>@EqualsAndHashCode：用于类上，会自动为该类生成equals方法和hashCode方法。</p></blockquote><blockquote><p>@NoArgsConstructor：用于类上，会自动为该类生成无参构造方法。</p></blockquote><blockquote><p>@AllArgsConstructor：用于类上，会自动为该类生成全属性的构造方法。</p></blockquote><blockquote><p>@RequiredArgsConstructor：用于类上，会自动为该类生成含属性上有@NonNull注释的构造方法。</p></blockquote><blockquote><p>@Data：用于类上，相当于同时使用了@ToString、@EqualsAndHashCode、@Getter、@Setter和@RequiredArgsConstrutor这些注解。</p></blockquote><blockquote><p>@Value：用于类上，是@Data的不可变形式，相当于为属性添加final声明，只提供getter方法，而不提供setter方法。</p></blockquote><blockquote><p>@Builder：用于类上，使该类可以用类似构造者模式一样链式调用生成。</p></blockquote><blockquote><p>@SneakyThrows：自动抛出异常，而无需显式在方法上使用throws语句。</p></blockquote><blockquote><p>@Getter(lazy=true)：用于类上，会自动为该类生成含属性上有@NonNull注释的构造方法。</p></blockquote>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;认识LomBok&quot;&gt;&lt;a href=&quot;#认识LomBok&quot; class=&quot;headerlink&quot; title=&quot;认识LomBok&quot;&gt;&lt;/a&gt;认识LomBok&lt;/h1&gt;&lt;p&gt;第一次知道有LomBok这个插件存在是在看别人源码的时候，打开了一个实体类发现竟然没有get
+      
+    
+    </summary>
+    
+      <category term="java" scheme="http://yoursite.com/categories/java/"/>
+    
+    
+      <category term="小插件" scheme="http://yoursite.com/tags/%E5%B0%8F%E6%8F%92%E4%BB%B6/"/>
     
   </entry>
   
